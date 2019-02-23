@@ -1,12 +1,10 @@
-package andreea.my.traveljournal.trips;
+package andreea.my.traveljournal.fragment_trips;
 
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ToggleButton;
 
 import com.squareup.picasso.Picasso;
 
@@ -48,4 +46,6 @@ public class TripAdapter extends RecyclerView.Adapter<TripsViewHolder> {
     public int getItemCount() {
         return mTrips.size();
     }
+
+
 }

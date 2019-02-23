@@ -1,4 +1,4 @@
-package andreea.my.traveljournal.trips;
+package andreea.my.traveljournal.fragment_trips;
 
 public class Trip {
     private String mSeason;

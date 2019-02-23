@@ -1,5 +1,6 @@
-package andreea.my.traveljournal.trips;
+package andreea.my.traveljournal.fragment_trips;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -24,5 +25,8 @@ public class TripsViewHolder extends RecyclerView.ViewHolder {
         mTextViewLocation = itemView.findViewById(R.id.textview_location);
         mTextViewPriceAndRating = itemView.findViewById(R.id.textview_price_rating);
         mToggleButtonFavourite = itemView.findViewById(R.id.togglebutton_favourite);
+
     }
+
+
 }

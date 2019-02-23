@@ -13,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import andreea.my.traveljournal.fragment_trips.RecyclerViewFragment;
+
 public class ProfileActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -81,7 +83,7 @@ public class ProfileActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
+            ProfileActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.containerID, RecyclerViewFragment.newInstance()).commit();
         } else if (id == R.id.nav_favourite) {
 
         } else if (id == R.id.nav_aboutus) {
