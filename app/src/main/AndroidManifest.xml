@@ -16,19 +16,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SingInActivity"></activity>
+        <activity android:name=".TripDetailsActivity">
+
+        </activity>
         <activity
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ManageTripActivity" />
-        <activity android:name=".trips.RecyclerViewActivity">
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".ManageTripActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".trips.RecyclerViewActivity"></activity>
     </application>
 
 </manifest>

@@ -80,13 +80,13 @@ public class ProfileActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_home) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_favourite) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_aboutus) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_contact) {
 
         } else if (id == R.id.nav_share) {
 
