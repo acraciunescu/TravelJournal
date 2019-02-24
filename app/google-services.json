@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "579994441941",
-    "firebase_url": "https://traveljournal-8177c.firebaseio.com",
-    "project_id": "traveljournal-8177c",
-    "storage_bucket": "traveljournal-8177c.appspot.com"
+    "project_number": "563690501082",
+    "firebase_url": "https://trip-journal-db9fd.firebaseio.com",
+    "project_id": "trip-journal-db9fd",
+    "storage_bucket": "trip-journal-db9fd.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:579994441941:android:404500b3a2b002f0",
+        "mobilesdk_app_id": "1:563690501082:android:404500b3a2b002f0",
         "android_client_info": {
           "package_name": "andreea.my.traveljournal"
         }
       },
       "oauth_client": [
         {
-          "client_id": "579994441941-khvh0lknnm5upodjb6p09cq4pphuhj0a.apps.googleusercontent.com",
+          "client_id": "563690501082-kinrn27pfr37ecs8bv3uldrdsgt7do8q.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "andreea.my.traveljournal",
@@ -23,13 +23,13 @@
           }
         },
         {
-          "client_id": "579994441941-bfdadudcc2uojj4dg2o1b9buqn3bkeg1.apps.googleusercontent.com",
+          "client_id": "563690501082-qid030f6e2hco7if3kkqq91ebu45g8jv.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCpRL49mgd-UCHsDixfXMUh7uc-dUjVnJ0"
+          "current_key": "AIzaSyDnkHKJmzwd7TPk1NN0SRlLhp3Vq_J_ptg"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "579994441941-bfdadudcc2uojj4dg2o1b9buqn3bkeg1.apps.googleusercontent.com",
+              "client_id": "563690501082-qid030f6e2hco7if3kkqq91ebu45g8jv.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
