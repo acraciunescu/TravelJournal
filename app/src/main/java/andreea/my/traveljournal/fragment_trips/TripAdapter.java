@@ -34,9 +34,9 @@ public class TripAdapter extends RecyclerView.Adapter<TripsViewHolder> {
         tripsViewHolder.mTextViewLocation.setText(trip.getmLocationName());
         tripsViewHolder.mTextViewPriceAndRating.setText(trip.getmPrice()+" /"+trip.getmRating());
         if(trip.ismBookmark())
-            tripsViewHolder.mToggleButtonFavourite.setBackgroundResource(R.drawable.ic_bookmark_black_24dp);
+            tripsViewHolder.mCheckboxFavourite.setBackgroundResource(R.drawable.ic_bookmark_black_24dp);
         else
-            tripsViewHolder.mToggleButtonFavourite.setBackgroundResource(R.drawable.ic_bookmark_border_black_24dp);
+            tripsViewHolder.mCheckboxFavourite.setBackgroundResource(R.drawable.ic_bookmark_border_black_24dp);
         Picasso.get().load(trip.getmPicture()).into(tripsViewHolder.mImageView);
 
 

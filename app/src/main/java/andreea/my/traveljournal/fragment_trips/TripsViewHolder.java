@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -15,7 +16,7 @@ public class TripsViewHolder extends RecyclerView.ViewHolder {
     public TextView mTextViewSeason;
     public TextView mTextViewLocation;
     public TextView mTextViewPriceAndRating;
-    public ToggleButton mToggleButtonFavourite;
+    public CheckBox mCheckboxFavourite;
 
     public TripsViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -24,7 +25,7 @@ public class TripsViewHolder extends RecyclerView.ViewHolder {
         mTextViewSeason = itemView.findViewById(R.id.textview_season);
         mTextViewLocation = itemView.findViewById(R.id.textview_location);
         mTextViewPriceAndRating = itemView.findViewById(R.id.textview_price_rating);
-        mToggleButtonFavourite = itemView.findViewById(R.id.togglebutton_favourite);
+        mCheckboxFavourite = itemView.findViewById(R.id.checkbox_favourite);
 
     }
 

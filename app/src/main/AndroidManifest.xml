@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TripDetailsActivity">
+        <activity android:name=".TripDetailsActivity"
+            android:windowSoftInputMode="stateHidden">
 
         </activity>
         <activity
@@ -29,8 +30,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ManageTripActivity">
-
+        <activity android:name=".ManageTripActivity"
+            android:windowSoftInputMode="stateHidden">
         </activity>
     </application>
 
