@@ -12,6 +12,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 import andreea.my.traveljournal.fragment_trips.RecyclerViewFragment;
 
@@ -40,8 +47,26 @@ public class ProfileActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //get current user
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        View navView =  navigationView.getHeaderView(0);
+        TextView userEmailAdress = navView.findViewById(R.id.textview_user_email);
+        TextView userFullName = navView.findViewById(R.id.textview_user_fullname);
+        ImageView userProfilePicture = navView.findViewById(R.id.imageview_user_photo);
+
+        userEmailAdress.setText(firebaseUser.getEmail());
+        userFullName.setText(firebaseUser.getDisplayName());
+
+        Picasso.get().load(firebaseUser.getPhotoUrl()).into(userProfilePicture);
+
+
+
+
     }
 
     @Override
