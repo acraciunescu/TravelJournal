@@ -1,6 +1,16 @@
 package andreea.my.traveljournal.fragment_trips;
 
 public class Trip {
+    private String mUserId;
+
+    public String getmUserId() {
+        return mUserId;
+    }
+
+    public void setmUserId(String mUserId) {
+        this.mUserId = mUserId;
+    }
+
     private String mSeason;
     private String mLocationName;
     private String mPicture;
@@ -56,7 +66,8 @@ public class Trip {
         this.mPicture = mPicture;
     }
 
-    public Trip(String mSeason, String mLocationName, String mPicture, double mPrice, double mRating, boolean mBookmark) {
+    public Trip(String mId, String mSeason, String mLocationName, String mPicture, double mPrice, double mRating, boolean mBookmark) {
+        this.mUserId = mId;
         this.mSeason = mSeason;
         this.mLocationName = mLocationName;
         this.mPicture = mPicture;

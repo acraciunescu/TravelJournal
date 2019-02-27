@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -14,7 +15,11 @@ import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -35,6 +40,8 @@ public class ManageTripActivity extends AppCompatActivity implements View.OnClic
     private SeekBar mSeekBarPrice;
     private RatingBar mRatingBar;
     FirebaseFirestore db;
+    String tripID;
+    String action;
 
     private DatePickerFragment mDatePickerFragment;
     @Override
@@ -46,6 +53,40 @@ public class ManageTripActivity extends AppCompatActivity implements View.OnClic
 
         setUpFireBase();
 
+        Intent intent = getIntent();
+        action = intent.getStringExtra(RecyclerViewFragment.ACTION_ID);
+
+        if (action != null && !action.isEmpty()) {
+            if (action.equals(RecyclerViewFragment.ACTION_EDIT)) {
+                tripID = intent.getStringExtra(RecyclerViewFragment.TRIP_KEY);
+                if (tripID != null && !tripID.isEmpty()) {
+                    putDataInView(tripID);
+                }
+            }
+        }
+    }
+
+    private void putDataInView(String tripID) {
+        Log.e("ManageTripActivity" , "-----I'm here---");
+        DocumentReference docRef = db.collection("trips").document(tripID);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                mEditTextTripName.setText(documentSnapshot.getString("trip_name"));
+                mEditTextDestination.setText(documentSnapshot.getString("destination"));
+
+                if((long) documentSnapshot.get("type")==1) {
+                    mRadioButton1.setChecked(true);
+                }
+                else if((long) documentSnapshot.get("type")==2) {
+                    mRadioButton2.setChecked(true);
+                }
+                else if((long) documentSnapshot.get("type")==3) {
+                    mRadioButton3.setChecked(true);
+                }
+            }
+        });
     }
 
     private void initView() {
@@ -102,6 +143,7 @@ public class ManageTripActivity extends AppCompatActivity implements View.OnClic
 
     public void btnSaveTripOnClick(View view) {
 
+
         Map<String, Object> dataMap = new HashMap<>();
         dataMap.put("trip_name" , mEditTextTripName.getText().toString());
         dataMap.put("destination", mEditTextDestination.getText().toString());
@@ -116,9 +158,14 @@ public class ManageTripActivity extends AppCompatActivity implements View.OnClic
         dataMap.put("rating" , mRatingBar.getRating());
         dataMap.put("ImageUrl" , "https://www.pexels.com/photo/beautiful-beauty-blue-bright-414612/");
 
-        db.collection("trips")
-                .add(dataMap);
-
+        if(action.equals(RecyclerViewFragment.ACTION_ADD)) {
+            db.collection("trips")
+                    .add(dataMap);
+        }
+        else if(action.equals(RecyclerViewFragment.ACTION_EDIT)) {
+            DocumentReference docRef = db.collection("trips").document(tripID);
+            docRef.update(dataMap);
+        }
         Intent nextActivity = new Intent(this, ProfileActivity.class);
         startActivity(nextActivity);
     }
