@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:weightSum="4">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
@@ -22,11 +22,24 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
             android:visibility="visible"
             tools:visibility="gone" />
 
-
-        </LinearLayout>
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/gifimageview_welcome"
+            android:layout_width="match_parent"
+            android:layout_height="128dp"
+            android:src="@drawable/giphy"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/signInButton"/>
+        <Button
+            android:id="@+id/button_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home"
+            android:layout_above="@+id/gifimageview_welcome"/>
+        </RelativeLayout>
 
 
     <RelativeLayout
@@ -34,6 +47,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@color/browser_actions_bg_grey">
+
 
         <LinearLayout
             android:id="@+id/signOutAndDisconnect"

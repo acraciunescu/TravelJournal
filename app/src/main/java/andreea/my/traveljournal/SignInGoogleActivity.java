@@ -168,9 +168,11 @@ public class SignInGoogleActivity extends BaseActivity implements
         hideProgressDialog();
         if (user != null) {
             findViewById(R.id.signInButton).setVisibility(View.GONE);
+            findViewById(R.id.button_home).setVisibility(View.VISIBLE);
             findViewById(R.id.signOutAndDisconnect).setVisibility(View.VISIBLE);
         } else {
             findViewById(R.id.signInButton).setVisibility(View.VISIBLE);
+            findViewById(R.id.button_home).setVisibility(View.GONE);
             findViewById(R.id.signOutAndDisconnect).setVisibility(View.GONE);
         }
     }

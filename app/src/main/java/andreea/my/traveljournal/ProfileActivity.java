@@ -2,6 +2,7 @@ package andreea.my.traveljournal;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -17,10 +18,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
+import andreea.my.traveljournal.fragment_trips.RecyclerViewFavouritesFragment;
 import andreea.my.traveljournal.fragment_trips.RecyclerViewFragment;
 
 public class ProfileActivity extends AppCompatActivity
@@ -48,6 +53,7 @@ public class ProfileActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        drawer.openDrawer(GravityCompat.START);
 
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -65,8 +71,6 @@ public class ProfileActivity extends AppCompatActivity
         userFullName.setText(firebaseUser.getDisplayName());
 
         Picasso.get().load(firebaseUser.getPhotoUrl()).into(userProfilePicture);
-
-
 
 
     }
@@ -97,7 +101,9 @@ public class ProfileActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            FirebaseAuth.getInstance().signOut();
+            Intent nextActivity = new Intent(this, SignInGoogleActivity.class);
+            startActivity(nextActivity);
         }
 
         return super.onOptionsItemSelected(item);
@@ -112,7 +118,7 @@ public class ProfileActivity extends AppCompatActivity
         if (id == R.id.nav_home) {
             ProfileActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.containerID, RecyclerViewFragment.newInstance()).commit();
         } else if (id == R.id.nav_favourite) {
-
+            ProfileActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.containerID, RecyclerViewFavouritesFragment.newInstance()).commit();
         } else if (id == R.id.nav_aboutus) {
 
         } else if (id == R.id.nav_contact) {
@@ -127,4 +133,5 @@ public class ProfileActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

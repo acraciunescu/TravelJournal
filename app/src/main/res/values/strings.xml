@@ -45,5 +45,6 @@
     <string name="something">Something</string>
     <string name="price_eur">Price(EUR)</string>
     <string name="trip_name">Trip name</string>
+    <string name="home">Home</string>
 
 </resources>

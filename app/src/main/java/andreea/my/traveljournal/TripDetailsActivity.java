@@ -17,6 +17,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 import andreea.my.traveljournal.fragment_trips.RecyclerViewFragment;
 
 public class TripDetailsActivity extends AppCompatActivity {
@@ -56,16 +60,20 @@ public class TripDetailsActivity extends AppCompatActivity {
                     mEditTextDestination.setText(documentSnapshot.getString("destination"));
                     Picasso.get().load(documentSnapshot.getString("ImageUrl")).into(mImageView);
 
-                    if((long) documentSnapshot.get("type")==1) {
+                    if(documentSnapshot.get("type", int.class)==1) {
                         mTextViewType.setText("City Break");
                     }
-                    else if((long) documentSnapshot.get("type")==2) {
+                    else if((long) documentSnapshot.get("type", int.class)==2) {
                         mTextViewType.setText("Sea side");
                     }
-                    else if((long) documentSnapshot.get("type")==3) {
+                    else if((long) documentSnapshot.get("type", int.class)==3) {
                         mTextViewType.setText("Mountain");
                     }
 
+                    mButtonStartDate.setText(java.text.DateFormat.getDateInstance(DateFormat.MEDIUM).format(documentSnapshot.getDate("start_date")));
+                    mButtonEndDate.setText(java.text.DateFormat.getDateInstance(DateFormat.MEDIUM).format(documentSnapshot.getDate("end_date")));
+                    mSeekBarPrice.setProgress(documentSnapshot.get("price", int.class));
+                    mRatingBar.setRating(documentSnapshot.get("rating" , float.class));
                 }
             });
         }

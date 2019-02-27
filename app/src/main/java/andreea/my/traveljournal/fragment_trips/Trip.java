@@ -1,7 +1,14 @@
 package andreea.my.traveljournal.fragment_trips;
 
 public class Trip {
+
     private String mUserId;
+    private String mSeason;
+    private String mLocationName;
+    private String mPicture;
+    private double mPrice;
+    private double mRating;
+    private boolean mBookmark;
 
     public String getmUserId() {
         return mUserId;
@@ -10,13 +17,6 @@ public class Trip {
     public void setmUserId(String mUserId) {
         this.mUserId = mUserId;
     }
-
-    private String mSeason;
-    private String mLocationName;
-    private String mPicture;
-    private double mPrice;
-    private double mRating;
-    private boolean mBookmark;
 
     public double getmPrice() {
         return mPrice;
