@@ -1,28 +1,63 @@
 package andreea.my.traveljournal;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RatingBar;
+import android.widget.SeekBar;
+import android.widget.TextView;
+
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
+import andreea.my.traveljournal.fragment_trips.RecyclerViewFragment;
 
 public class ManageTripActivity extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
     private Button mButtonStartDate;
     private Button mButtonEndDate;
+    private EditText mEditTextTripName;
+    private EditText mEditTextDestination;
+    private RadioButton mRadioButton1;
+    private RadioButton mRadioButton2;
+    private RadioButton mRadioButton3;
+    private SeekBar mSeekBarPrice;
+    private RatingBar mRatingBar;
+    FirebaseFirestore db;
+
     private DatePickerFragment mDatePickerFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_trip);
 
+        initView();
+
+        setUpFireBase();
+
+    }
+
+    private void initView() {
+        mEditTextTripName = findViewById(R.id.edittext_tripname);
+        mEditTextDestination = findViewById(R.id.edittext_destination);
+        mRadioButton1 = findViewById(R.id.radiobutton_cb);
+        mRadioButton2 = findViewById(R.id.radiobutton_ss);
+        mRadioButton3 = findViewById(R.id.radiobutton_m);
         mButtonStartDate = findViewById(R.id.button_startdate);
         mButtonEndDate = findViewById(R.id.button_enddate);
+        mSeekBarPrice = findViewById(R.id.seekBar);
+        mRatingBar = findViewById(R.id.ratingBar);
 
         mDatePickerFragment = new DatePickerFragment();
 
@@ -31,6 +66,11 @@ public class ManageTripActivity extends AppCompatActivity implements View.OnClic
 
     }
 
+    private void setUpFireBase() {
+
+        db = FirebaseFirestore.getInstance();
+
+    }
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -58,5 +98,28 @@ public class ManageTripActivity extends AppCompatActivity implements View.OnClic
         else if(mDatePickerFragment.getFlag()== DatePickerFragment.FLAG_END_DATE) {
             mButtonEndDate.setText(currentDateString);
         }
+    }
+
+    public void btnSaveTripOnClick(View view) {
+
+        Map<String, Object> dataMap = new HashMap<>();
+        dataMap.put("trip_name" , mEditTextTripName.getText().toString());
+        dataMap.put("destination", mEditTextDestination.getText().toString());
+        dataMap.put("price" , mSeekBarPrice.getProgress());
+        if(mRadioButton1.isEnabled()) {
+            dataMap.put("type", 1);
+        } else if(mRadioButton2.isEnabled()) {
+            dataMap.put("type", 2);
+        } else if(mRadioButton3.isEnabled()) {
+            dataMap.put("type", 3);
+        }
+        dataMap.put("rating" , mRatingBar.getRating());
+        dataMap.put("ImageUrl" , "https://www.pexels.com/photo/beautiful-beauty-blue-bright-414612/");
+
+        db.collection("trips")
+                .add(dataMap);
+
+        Intent nextActivity = new Intent(this, ProfileActivity.class);
+        startActivity(nextActivity);
     }
 }

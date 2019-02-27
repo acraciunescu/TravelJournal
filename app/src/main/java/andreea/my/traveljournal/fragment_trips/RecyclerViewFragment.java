@@ -4,17 +4,32 @@ package andreea.my.traveljournal.fragment_trips;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import andreea.my.traveljournal.ManageTripActivity;
 import andreea.my.traveljournal.R;
@@ -25,6 +40,8 @@ import andreea.my.traveljournal.TripDetailsActivity;
  */
 public class RecyclerViewFragment extends Fragment {
     private RecyclerView mRecyclerViewTrips;
+    FirebaseFirestore db;
+    List<Trip> trips;
 
     public static RecyclerViewFragment newInstance() {
         return new RecyclerViewFragment();
@@ -33,6 +50,8 @@ public class RecyclerViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        trips = new ArrayList<>();
+
         View view = inflater.inflate(R.layout.fragment_recycler_view, container, false);
 
         mRecyclerViewTrips = (RecyclerView) view.findViewById(R.id.recyclerview_trips_fragment);
@@ -40,12 +59,9 @@ public class RecyclerViewFragment extends Fragment {
         //set the layout manager for the current recycler view
         mRecyclerViewTrips.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        //create the adapter
-        TripAdapter tripAdapter = new TripAdapter(getTripsList());
+        setUpFireBase();
+        loadDataFromFirebase();
 
-        //set the adapter to the recycler view
-        mRecyclerViewTrips.setAdapter(tripAdapter);
-        FragmentActivity context = this.getActivity();
         mRecyclerViewTrips.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), mRecyclerViewTrips, new TripClickListener() {
                 @Override
             public void onClick(View view, int position) {
@@ -62,28 +78,38 @@ public class RecyclerViewFragment extends Fragment {
         return view;
     }
 
-    private List<Trip> getTripsList() {
-        List<Trip> trips = new ArrayList<>();
-        Trip trip1 = new Trip("Summer 2011", "France", "https://images.unsplash.com/photo-1510546462255-979b0e0ca1b5?w=800&q=60",
-                200,10, true);
-        Trip trip2 = new Trip("Summer 2011", "Romania", "https://images.unsplash.com/photo-1510546462255-979b0e0ca1b5?w=800&q=60",
-                200,10, true);
-        Trip trip3 = new Trip("Summer 2011", "France1", "https://images.unsplash.com/photo-1510546462255-979b0e0ca1b5?w=800&q=60",
-                200,10, true);
-        Trip trip4 = new Trip("Summer 2011", "France2", "https://images.unsplash.com/photo-1510546462255-979b0e0ca1b5?w=800&q=60",
-                200,10, false);
-        Trip trip5 = new Trip("Summer 2011", "France3", "https://images.unsplash.com/photo-1510546462255-979b0e0ca1b5?w=800&q=60",
-                200,10, true);
-        Trip trip6 = new Trip("Summer 2011", "France4", "https://images.unsplash.com/photo-1510546462255-979b0e0ca1b5?w=800&q=60",
-                200,10, false);
+    private void loadDataFromFirebase() {
+        db.collection("trips")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for(DocumentSnapshot documentSnapshot: task.getResult()) {
+                            Log.e("ID:", documentSnapshot.getId());
+                            Trip trip = new Trip(documentSnapshot.getString("trip_name")
+                                    , documentSnapshot.getString("destination")
+                                    , documentSnapshot.getString("ImageUrl")
+                                    , documentSnapshot.getDouble("price")
+                                    , documentSnapshot.getDouble("rating")
+                                    , true
+                                    );
+                            trips.add(trip);
+                        }
+                        //create the adapter
+                        TripAdapter tripAdapter = new TripAdapter(trips);
 
-        trips.add(trip1);
-        trips.add(trip2);
-        trips.add(trip3);
-        trips.add(trip4);
-        trips.add(trip5);
-        trips.add(trip6);
-
-        return trips;
+                        //set the adapter to the recycler view
+                        mRecyclerViewTrips.setAdapter(tripAdapter);
+                    }
+                });
     }
+
+
+    private void setUpFireBase() {
+
+        db = FirebaseFirestore.getInstance();
+
+    }
+
+
 }
