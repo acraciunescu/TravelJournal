@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -22,10 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import andreea.my.traveljournal.BaseActivity;
-import andreea.my.traveljournal.R;
-
-public class SingInGoogleActivity extends BaseActivity implements
+public class SignInGoogleActivity extends BaseActivity implements
         View.OnClickListener {
 
     private static final String TAG = "GoogleActivity";
@@ -40,7 +35,7 @@ public class SingInGoogleActivity extends BaseActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sing_in_google);
+        setContentView(R.layout.activity_sign_in_google);
 
         // Button listeners
         findViewById(R.id.signInButton).setOnClickListener(this);
